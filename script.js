@@ -1,9 +1,8 @@
-// ================= NAVIGATION (Hamburger + Smooth Scroll) =================
-
 document.addEventListener("DOMContentLoaded", () => {
   const navToggle = document.querySelector(".nav-toggle");
   const navLinks = document.querySelector(".nav-links");
 
+  // ========== NAV TOGGLE ==========
   if (navToggle && navLinks) {
     navToggle.addEventListener("click", () => {
       navToggle.classList.toggle("open");
@@ -19,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Smooth scroll
+  // ========== SMOOTH SCROLL ==========
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener("click", (e) => {
       const targetId = link.getAttribute("href").slice(1);
@@ -27,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (target) {
         e.preventDefault();
         const rect = target.getBoundingClientRect();
-        const offset = window.scrollY + rect.top - 70; // some space under sticky header
+        const offset = window.scrollY + rect.top - 70; // space under sticky header
         window.scrollTo({
           top: offset,
           behavior: "smooth",
@@ -36,8 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ================= FADE-IN-UP ON SCROLL =================
-
+  // ========== FADE-IN-UP ON SCROLL ==========
   const observed = document.querySelectorAll(".fade-in-up");
   const observer = new IntersectionObserver(
     (entries) => {
@@ -55,8 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   observed.forEach((el) => observer.observe(el));
 
-  // ================= DUST / INK PARTICLES =================
-
+  // ========== MIXED DUST + INK PARTICLES ==========
   const canvas = document.getElementById("dust-canvas");
   if (!canvas) return;
 
@@ -80,22 +77,39 @@ document.addEventListener("DOMContentLoaded", () => {
     initParticles();
   });
 
-  function createParticle() {
-    return {
+  function createParticle(type) {
+    const base = {
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 0.9 + 0.4,
-      speedY: Math.random() * 0.12 + 0.04,
-      speedX: (Math.random() - 0.5) * 0.09,
-      opacity: Math.random() * 0.35 + 0.1,
+      opacity: Math.random() * 0.35 + 0.08,
     };
+
+    if (type === "dust") {
+      return {
+        ...base,
+        type,
+        radius: Math.random() * 1.2 + 0.6,
+        speedY: Math.random() * 0.09 + 0.03,
+        speedX: (Math.random() - 0.5) * 0.05,
+      };
+    } else {
+      // ink speck
+      return {
+        ...base,
+        type,
+        radius: Math.random() * 0.7 + 0.25,
+        speedY: Math.random() * 0.12 + 0.05,
+        speedX: (Math.random() - 0.5) * 0.08,
+      };
+    }
   }
 
   function initParticles() {
-    const baseCount = width < 600 ? 40 : 70;
+    const baseCount = width < 600 ? 70 : 110; // dense but light
     particles = [];
     for (let i = 0; i < baseCount; i++) {
-      particles.push(createParticle());
+      const type = Math.random() < 0.55 ? "dust" : "ink";
+      particles.push(createParticle(type));
     }
   }
 
@@ -108,8 +122,8 @@ document.addEventListener("DOMContentLoaded", () => {
         p.y = -10;
         p.x = Math.random() * width;
       }
-      if (p.x < -10) p.x = width + 10;
-      if (p.x > width + 10) p.x = -10;
+      if (p.x < -12) p.x = width + 12;
+      if (p.x > width + 12) p.x = -12;
     }
   }
 
@@ -119,7 +133,14 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let p of particles) {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(40, 24, 18, ${p.opacity})`;
+
+      if (p.type === "dust") {
+        ctx.fillStyle = `rgba(90, 70, 60, ${p.opacity * 0.8})`;
+      } else {
+        // ink speck
+        ctx.fillStyle = `rgba(40, 24, 18, ${p.opacity})`;
+      }
+
       ctx.fill();
     }
   }
@@ -133,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initParticles();
   loop();
 
-  // Stop animation when tab is hidden to save battery
+  // Pause animation in background tab to save battery
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       cancelAnimationFrame(animationId);
