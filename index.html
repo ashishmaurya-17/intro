@@ -2,200 +2,214 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Ashish Kumar · Data & Policy</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-  <meta name="theme-color" content="#f2e8d5"> <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+  <meta name="theme-color" content="#f0e6d2">
+  <title>Ashish Kumar · The Royal Dossier</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-
+  
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  
+
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="progress-bar"></div>
+  </div>
+
   <div class="paper-texture"></div>
   <canvas id="dust-canvas"></canvas>
-  <div class="page-vignette"></div>
+  <div class="vignette-overlay"></div>
 
-  <div class="page-wrapper">
-    <header class="site-header">
-      <div class="header-inner">
-        <div class="brand-mark">
-          <span class="brand-initials typewriter">A.K.</span>
-          <span class="brand-name typewriter">ASHISH KUMAR</span>
-        </div>
+  <nav class="mobile-nav">
+    <div class="nav-brand typewriter">A.K.</div>
+    <button class="menu-btn" aria-label="Menu">
+      <span class="menu-icon-line"></span>
+      <span class="menu-icon-line"></span>
+    </button>
+    <div class="nav-overlay" id="nav-overlay">
+      <ul class="nav-list">
+        <li><a href="#hero" class="nav-link">01. Overview</a></li>
+        <li><a href="#expertise" class="nav-link">02. Expertise</a></li>
+        <li><a href="#ledger" class="nav-link">03. Ledger</a></li>
+        <li><a href="#contact" class="nav-link">04. Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
-        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-          <span class="nav-line"></span>
-          <span class="nav-line"></span>
-          <span class="nav-line"></span>
-        </button>
-      </div>
-
-      <nav class="site-nav" id="mobile-nav">
-        <ul class="nav-links">
-          <li><a href="#hero" class="nav-item">Overview</a></li>
-          <li><a href="#expertise" class="nav-item">Expertise</a></li>
-          <li><a href="#ledger" class="nav-item">Academic Ledger</a></li>
-          <li><a href="#contact" class="nav-item">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="header-rule"></div>
-    </header>
-
-    <main>
-      <section id="hero" class="hero-section fade-in-up">
-        <div class="hero-top-row">
-          <div class="hero-avatar-ring">
-            <img
-              src="https://github.com/ashishmaurya-17/intro/raw/main/308009592_824905998535562_4349481903912511976_n_824906008535561.jpg"
-              alt="Portrait of Ashish Kumar"
-              class="hero-avatar"
-            />
+  <main class="scroll-container">
+    
+    <section id="hero" class="scroll-area">
+      <div class="content-wrapper hero-wrapper">
+        <div class="hero-visuals">
+          <div class="avatar-ring">
+            <img src="https://github.com/ashishmaurya-17/intro/raw/main/308009592_824905998535562_4349481903912511976_n_824906008535561.jpg" alt="Ashish Kumar" class="avatar-img">
+            <div class="status-indicator"></div>
           </div>
           <div class="wax-seal">
-            <span class="wax-text typewriter">EST.<br>2004</span>
+            <span>EST.<br>2004</span>
           </div>
         </div>
 
-        <h1 class="hero-title typewriter-effect">ASHISH KUMAR</h1>
+        <h1 class="hero-name typewriter">ASHISH KUMAR</h1>
+        <p class="hero-title">Data Interpreter & Policy Thinker</p>
+        
+        <div class="hero-card glass-panel fade-in">
+          <p class="hero-text">
+            "I speak less, observe more, and work where <span class="highlight">clarity</span>, <span class="highlight">evidence</span>, and <span class="highlight">discipline</span> overlap."
+          </p>
+          <div class="signature">Ashish K.</div>
+        </div>
 
-        <p class="hero-tagline">
-          Where data meets <span class="highlight-text">ground reality</span>.
+        <div class="scroll-hint">
+          <span>Scroll to Explore</span>
+          <div class="arrow-down"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="expertise" class="scroll-area">
+      <div class="content-wrapper">
+        <div class="section-header">
+          <span class="section-number">02</span>
+          <h2 class="typewriter">Core Expertise</h2>
+        </div>
+
+        <div class="cards-stack">
+          <div class="glass-card">
+            <div class="card-icon">📊</div>
+            <h3>Data Strategy</h3>
+            <p>Reading patterns, not noise. Designing simple flows for decision-makers.</p>
+          </div>
+          <div class="glass-card">
+            <div class="card-icon">🏛️</div>
+            <h3>Policy Architecture</h3>
+            <p>Bridging the gap between strict regulations and human reality.</p>
+          </div>
+          <div class="glass-card">
+            <div class="card-icon">✒️</div>
+            <h3>Technical Writing</h3>
+            <p>Concise briefing notes. Documentation that respects your time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ledger" class="scroll-area">
+      <div class="content-wrapper">
+        <div class="section-header">
+          <span class="section-number">03</span>
+          <h2 class="typewriter">Academic Ledger</h2>
+        </div>
+
+        <div class="receipt-container glass-panel">
+          <div class="receipt-header">
+            <span class="typewriter">OFFICIAL TRANSCRIPT</span>
+            <span class="receipt-date">2025</span>
+          </div>
+          
+          <div class="receipt-body">
+            <div class="receipt-row">
+              <div class="row-left">
+                <strong>10th Standard</strong>
+                <span class="row-sub">Bihar Board</span>
+              </div>
+              <div class="row-right">
+                <span class="score">90.54%</span>
+                <span class="status done">✓</span>
+              </div>
+            </div>
+
+            <div class="receipt-divider"></div>
+
+            <div class="receipt-row">
+              <div class="row-left">
+                <strong>12th Standard</strong>
+                <span class="row-sub">Higher Secondary</span>
+              </div>
+              <div class="row-right">
+                <span class="score">89.84%</span>
+                <span class="status done">✓</span>
+              </div>
+            </div>
+
+            <div class="receipt-divider"></div>
+
+            <div class="receipt-row">
+              <div class="row-left">
+                <strong>B.A. Pol. Sci</strong>
+                <span class="row-sub">Semester 1</span>
+              </div>
+              <div class="row-right">
+                <span class="score">86.00%</span>
+                <span class="status done">✓</span>
+              </div>
+            </div>
+            
+            <div class="receipt-divider"></div>
+
+            <div class="receipt-row current-row">
+              <div class="row-left">
+                <strong>B.A. Pol. Sci</strong>
+                <span class="row-sub">Sem 2 - 8</span>
+              </div>
+              <div class="row-right">
+                <span class="status pending">Pursuing...</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="receipt-footer">
+            * Verified Academic History
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="scroll-area">
+      <div class="content-wrapper">
+        <div class="section-header">
+          <span class="section-number">04</span>
+          <h2 class="typewriter">Connect</h2>
+        </div>
+
+        <p class="contact-text">
+          I value clear communication. Connect for work that requires focus and structure.
         </p>
 
-        <div class="hero-role-mobile">
-          <p><strong>Primary Role:</strong> Data Interpreter · Policy Thinker</p>
-          <div class="soft-skills-scroller">
-            <span class="skill-stamp">CONSISTENCY</span>
-            <span class="skill-stamp">OBSERVATION</span>
-            <span class="skill-stamp">CLARITY</span>
-          </div>
-        </div>
-
-        <div class="hero-document">
-          <div class="doc-header typewriter">THE ROYAL DOSSIER</div>
-          <p class="doc-body">
-            Ashish Kumar is a calm, observant mind who reads patterns more than noise. 
-            Introverted by nature, relying on <strong>logic</strong> and <strong>discipline</strong>.
-          </p>
-          <p class="doc-body quote-style">“Clarity is strength.”</p>
-        </div>
-      </section>
-
-      <section id="expertise" class="section-shell fade-in-up">
-        <div class="section-heading">
-          <h2 class="section-title typewriter">CORE EXPERTISE</h2>
-        </div>
-
-        <div class="cards-grid">
-          <article class="expertise-card">
-            <div class="card-top">
-              <h3 class="card-title typewriter">DATA STRATEGY</h3>
-              <span class="card-icon">📊</span>
-            </div>
-            <p class="card-text">
-              Reading patterns instead of chasing noise. Designing simple reports decision-makers can actually use.
-            </p>
-          </article>
-
-          <article class="expertise-card">
-            <div class="card-top">
-              <h3 class="card-title typewriter">POLICY ARCHITECTURE</h3>
-              <span class="card-icon">🏛️</span>
-            </div>
-            <p class="card-text">
-              Bridging the gap between regulations and the people who must follow them using human language.
-            </p>
-          </article>
-
-          <article class="expertise-card">
-            <div class="card-top">
-              <h3 class="card-title typewriter">TECHNICAL WRITING</h3>
-              <span class="card-icon">✍️</span>
-            </div>
-            <p class="card-text">
-              Concise, factual briefing notes. Writing that respects the reader’s time.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section id="ledger" class="section-shell fade-in-up">
-        <div class="section-heading">
-          <h2 class="section-title typewriter">ACADEMIC LEDGER</h2>
-        </div>
-
-        <div class="responsive-table-wrapper">
-          <table class="ledger-table">
-            <thead>
-              <tr>
-                <th>Level</th>
-                <th>Details</th>
-                <th>Score</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Level">10<sup>th</sup></td>
-                <td data-label="Details">Secondary (Bihar Board)</td>
-                <td data-label="Score" class="score-cell">90.54%</td>
-                <td data-label="Status"><span class="status-stamp status-completed">DONE</span></td>
-              </tr>
-              <tr>
-                <td data-label="Level">12<sup>th</sup></td>
-                <td data-label="Details">Higher Secondary</td>
-                <td data-label="Score" class="score-cell">89.84%</td>
-                <td data-label="Status"><span class="status-stamp status-completed">DONE</span></td>
-              </tr>
-              <tr>
-                <td data-label="Level">Grad. Sem 1</td>
-                <td data-label="Details">B.A. Political Science</td>
-                <td data-label="Score" class="score-cell">86%</td>
-                <td data-label="Status"><span class="status-stamp status-completed">DONE</span></td>
-              </tr>
-              <tr>
-                <td data-label="Level">Current</td>
-                <td data-label="Details">B.A. Political Science (Sem 2+)</td>
-                <td data-label="Score" class="score-cell">—</td>
-                <td data-label="Status"><span class="status-stamp status-pursuing">ONGOING</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section id="contact" class="section-shell fade-in-up">
-        <div class="section-heading">
-          <h2 class="section-title typewriter">CONTACT</h2>
-        </div>
-        
-        <p class="contact-intro">Click below to connect.</p>
-
-        <div class="contact-grid">
-          <a class="press-button" href="https://www.linkedin.com/in/ashishmaurya17/" target="_blank">
-            <span class="press-label typewriter">LINKEDIN</span>
+        <div class="social-links-vertical">
+          <a href="https://www.linkedin.com/in/ashishmaurya17/" class="social-btn">
+            <span class="btn-icon">in</span>
+            <span class="btn-text typewriter">LinkedIn</span>
+            <span class="btn-arrow">→</span>
           </a>
-          <a class="press-button" href="https://github.com/ashishmaurya-17" target="_blank">
-            <span class="press-label typewriter">GITHUB</span>
+          <a href="https://github.com/ashishmaurya-17" class="social-btn">
+            <span class="btn-icon">git</span>
+            <span class="btn-text typewriter">GitHub</span>
+            <span class="btn-arrow">→</span>
           </a>
-          <a class="press-button" href="mailto:eduashishh@gmail.com">
-            <span class="press-label typewriter">EMAIL</span>
-          </a>
-          <a class="press-button" href="https://www.instagram.com/ashishh.kr" target="_blank">
-            <span class="press-label typewriter">INSTAGRAM</span>
+          <a href="mailto:eduashishh@gmail.com" class="social-btn highlight-btn">
+            <span class="btn-icon">@</span>
+            <span class="btn-text typewriter">Email Me</span>
+            <span class="btn-arrow">→</span>
           </a>
         </div>
-      </section>
-    </main>
 
-    <footer class="site-footer">
-      <div class="footer-rule"></div>
-      <p class="footer-text typewriter">
-        © 2025 Ashish Kumar<br>Crafted on Earth
-      </p>
-    </footer>
-  </div>
+        <footer class="final-footer">
+          <p class="typewriter">Ashish Kumar © 2025</p>
+        </footer>
+      </div>
+    </section>
+
+  </main>
+
+  <a href="mailto:eduashishh@gmail.com" class="fab-contact" aria-label="Send Email">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+      <polyline points="22,6 12,13 2,6"></polyline>
+    </svg>
+  </a>
 
   <script src="script.js"></script>
 </body>
