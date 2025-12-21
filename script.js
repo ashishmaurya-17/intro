@@ -1,47 +1,55 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. NAVIGATION TOGGLE
+  // 1. MOBILE NAV TOGGLE
   const navToggle = document.querySelector(".nav-toggle");
-  const navLinks = document.querySelector(".nav-links");
+  const navMenu = document.getElementById("mobile-nav");
+  const navLinks = document.querySelectorAll(".nav-item");
 
-  if (navToggle) {
+  if (navToggle && navMenu) {
     navToggle.addEventListener("click", () => {
-      navLinks.style.display = navLinks.style.display === "flex" ? "none" : "flex";
-      // Simple logic for mobile toggle, can be expanded
+      const isOpen = navMenu.classList.contains("open");
+      if (isOpen) {
+        navMenu.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      } else {
+        navMenu.classList.add("open");
+        navToggle.setAttribute("aria-expanded", "true");
+      }
+    });
+
+    // Close menu when a link is clicked
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        navMenu.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      });
     });
   }
 
-  // 2. SCROLL REVEAL ANIMATION (Intersection Observer)
-  const observerOptions = { threshold: 0.15 };
-  
+  // 2. SCROLL ANIMATION
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("in-view");
-        observer.unobserve(entry.target); // Only animate once
+        observer.unobserve(entry.target);
       }
     });
-  }, observerOptions);
+  }, { threshold: 0.1 });
 
   document.querySelectorAll(".fade-in-up").forEach((el) => {
     observer.observe(el);
   });
 
-  // 3. SMOOTH SCROLLING FOR ANCHOR LINKS
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      document.querySelector(this.getAttribute('href')).scrollIntoView({
-        behavior: 'smooth'
-      });
-    });
-  });
-
-  // 4. PARTICLE DUST SYSTEM (Optimized)
+  // 3. BATTERY-FRIENDLY DUST PARTICLES
+  // We reduce particle count significantly on mobile
   const canvas = document.getElementById("dust-canvas");
   if (canvas) {
     const ctx = canvas.getContext("2d");
     let particles = [];
     
+    // Check if mobile
+    const isMobile = window.innerWidth < 768;
+    const particleCount = isMobile ? 25 : 80; // Very few particles on mobile to save battery
+
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -55,20 +63,22 @@ document.addEventListener("DOMContentLoaded", () => {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.size = Math.random() * 2;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
-        this.opacity = Math.random() * 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.3; // Slower speed
+        this.speedY = (Math.random() - 0.5) * 0.3;
+        this.opacity = Math.random() * 0.4;
       }
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
+        
+        // Wrap around screen
         if (this.x > canvas.width) this.x = 0;
-        if (this.x < 0) this.x = canvas.width;
+        else if (this.x < 0) this.x = canvas.width;
         if (this.y > canvas.height) this.y = 0;
-        if (this.y < 0) this.y = canvas.height;
+        else if (this.y < 0) this.y = canvas.height;
       }
       draw() {
-        ctx.fillStyle = `rgba(80, 60, 50, ${this.opacity})`;
+        ctx.fillStyle = `rgba(100, 80, 70, ${this.opacity})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -77,7 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const initParticles = () => {
       particles = [];
-      const particleCount = window.innerWidth < 600 ? 50 : 100;
       for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
       }
