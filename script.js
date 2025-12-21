@@ -1,165 +1,98 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // 1. NAVIGATION TOGGLE
   const navToggle = document.querySelector(".nav-toggle");
   const navLinks = document.querySelector(".nav-links");
 
-  // ========== NAV TOGGLE ==========
-  if (navToggle && navLinks) {
+  if (navToggle) {
     navToggle.addEventListener("click", () => {
-      navToggle.classList.toggle("open");
-      navLinks.classList.toggle("open");
-    });
-
-    // Close nav on link click (mobile)
-    navLinks.addEventListener("click", (e) => {
-      if (e.target.tagName.toLowerCase() === "a") {
-        navToggle.classList.remove("open");
-        navLinks.classList.remove("open");
-      }
+      navLinks.style.display = navLinks.style.display === "flex" ? "none" : "flex";
+      // Simple logic for mobile toggle, can be expanded
     });
   }
 
-  // ========== SMOOTH SCROLL ==========
-  document.querySelectorAll('a[href^="#"]').forEach((link) => {
-    link.addEventListener("click", (e) => {
-      const targetId = link.getAttribute("href").slice(1);
-      const target = document.getElementById(targetId);
-      if (target) {
-        e.preventDefault();
-        const rect = target.getBoundingClientRect();
-        const offset = window.scrollY + rect.top - 70; // space under sticky header
-        window.scrollTo({
-          top: offset,
-          behavior: "smooth",
-        });
+  // 2. SCROLL REVEAL ANIMATION (Intersection Observer)
+  const observerOptions = { threshold: 0.15 };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+        observer.unobserve(entry.target); // Only animate once
       }
     });
+  }, observerOptions);
+
+  document.querySelectorAll(".fade-in-up").forEach((el) => {
+    observer.observe(el);
   });
 
-  // ========== FADE-IN-UP ON SCROLL ==========
-  const observed = document.querySelectorAll(".fade-in-up");
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-          observer.unobserve(entry.target);
-        }
+  // 3. SMOOTH SCROLLING FOR ANCHOR LINKS
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
       });
-    },
-    {
-      threshold: 0.12,
-    }
-  );
-
-  observed.forEach((el) => observer.observe(el));
-
-  // ========== MIXED DUST + INK PARTICLES ==========
-  const canvas = document.getElementById("dust-canvas");
-  if (!canvas) return;
-
-  const ctx = canvas.getContext("2d");
-  let particles = [];
-  let width = window.innerWidth;
-  let height = window.innerHeight;
-  let animationId;
-
-  function resizeCanvas() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-  }
-
-  resizeCanvas();
-
-  window.addEventListener("resize", () => {
-    resizeCanvas();
-    initParticles();
+    });
   });
 
-  function createParticle(type) {
-    const base = {
-      x: Math.random() * width,
-      y: Math.random() * height,
-      opacity: Math.random() * 0.35 + 0.08,
+  // 4. PARTICLE DUST SYSTEM (Optimized)
+  const canvas = document.getElementById("dust-canvas");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2;
+        this.speedX = (Math.random() - 0.5) * 0.5;
+        this.speedY = (Math.random() - 0.5) * 0.5;
+        this.opacity = Math.random() * 0.5;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+      draw() {
+        ctx.fillStyle = `rgba(80, 60, 50, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    const initParticles = () => {
+      particles = [];
+      const particleCount = window.innerWidth < 600 ? 50 : 100;
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
     };
 
-    if (type === "dust") {
-      return {
-        ...base,
-        type,
-        radius: Math.random() * 1.2 + 0.6,
-        speedY: Math.random() * 0.09 + 0.03,
-        speedX: (Math.random() - 0.5) * 0.05,
-      };
-    } else {
-      // ink speck
-      return {
-        ...base,
-        type,
-        radius: Math.random() * 0.7 + 0.25,
-        speedY: Math.random() * 0.12 + 0.05,
-        speedX: (Math.random() - 0.5) * 0.08,
-      };
-    }
+    const animateParticles = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    };
+
+    initParticles();
+    animateParticles();
   }
-
-  function initParticles() {
-    const baseCount = width < 600 ? 70 : 110; // dense but light
-    particles = [];
-    for (let i = 0; i < baseCount; i++) {
-      const type = Math.random() < 0.55 ? "dust" : "ink";
-      particles.push(createParticle(type));
-    }
-  }
-
-  function updateParticles() {
-    for (let p of particles) {
-      p.y += p.speedY;
-      p.x += p.speedX;
-
-      if (p.y > height + 10) {
-        p.y = -10;
-        p.x = Math.random() * width;
-      }
-      if (p.x < -12) p.x = width + 12;
-      if (p.x > width + 12) p.x = -12;
-    }
-  }
-
-  function drawParticles() {
-    ctx.clearRect(0, 0, width, height);
-
-    for (let p of particles) {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-
-      if (p.type === "dust") {
-        ctx.fillStyle = `rgba(90, 70, 60, ${p.opacity * 0.8})`;
-      } else {
-        // ink speck
-        ctx.fillStyle = `rgba(40, 24, 18, ${p.opacity})`;
-      }
-
-      ctx.fill();
-    }
-  }
-
-  function loop() {
-    updateParticles();
-    drawParticles();
-    animationId = requestAnimationFrame(loop);
-  }
-
-  initParticles();
-  loop();
-
-  // Pause animation in background tab to save battery
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      cancelAnimationFrame(animationId);
-    } else {
-      animationId = requestAnimationFrame(loop);
-    }
-  });
 });
