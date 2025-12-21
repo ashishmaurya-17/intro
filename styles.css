@@ -1,177 +1,144 @@
-/* ============ GLOBAL RESET ============ */
+/* ============ BASIC SETUP ============ */
 :root {
   --paper: #f0e6d2;
   --ink: #2c2420;
   --royal: #6b2c2c;
   --gold: #b59a76;
-  --glass: rgba(255, 255, 255, 0.45);
-  --glass-border: rgba(255, 255, 255, 0.6);
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-body {
+html, body {
   margin: 0; padding: 0;
-  font-family: 'Cormorant Garamond', serif;
+  width: 100%; height: 100%;
   background-color: var(--paper);
   color: var(--ink);
-  overflow: hidden; /* Scroll container handle karega */
+  font-family: 'Cormorant Garamond', serif;
 }
 
-/* Texture */
+/* Background Texture & Canvas Fix */
 .paper-texture {
   position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
 }
 
-/* ============ NAVIGATION FIX (IMPORTANT) ============ */
+#dust-canvas {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+}
+
+/* ============ NAVIGATION (MOBILE & DESKTOP) ============ */
 .mobile-nav {
-  position: fixed; top: 0; left: 0; right: 0; height: 70px;
+  position: fixed; top: 0; left: 0; width: 100%; height: 60px;
   display: flex; justify-content: space-between; align-items: center;
-  padding: 0 2rem; z-index: 1000; /* Sabse upar */
-  background: rgba(240, 230, 210, 0.9);
-  backdrop-filter: blur(8px);
+  padding: 0 20px; z-index: 1000;
+  background: rgba(240, 230, 210, 0.95);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  backdrop-filter: blur(5px);
 }
 
-.nav-brand { font-weight: bold; letter-spacing: 2px; font-size: 1.4rem; font-family: 'Special Elite', monospace; }
+.nav-brand { font-family: 'Special Elite'; font-weight: bold; font-size: 1.2rem; }
 
-/* Hamburger Button (Mobile Only) */
-.menu-btn { 
-  background: none; border: none; cursor: pointer; 
-  display: flex; flex-direction: column; gap: 6px; z-index: 1001;
+/* Menu Button */
+.menu-btn {
+  display: flex; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; z-index: 1001;
 }
-.menu-icon-line { width: 28px; height: 3px; background: var(--ink); transition: 0.3s; }
+.menu-icon-line { width: 25px; height: 3px; background: var(--royal); transition: 0.3s; }
 
-/* Mobile Menu Overlay - By default HIDDEN properly */
+/* Overlay Menu */
 .nav-overlay {
-  position: fixed; inset: 0; background: var(--paper);
-  display: flex; justify-content: center; align-items: center;
-  opacity: 0; 
-  visibility: hidden; /* Fix: Ab ye click nahi rokega */
-  transition: all 0.4s ease;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: var(--paper);
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
   z-index: 999;
+  transform: translateY(-100%); /* Menu shuru mein upar chhupa rahega */
+  transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-/* Jab Menu Open Ho */
-.nav-overlay.active { 
-  opacity: 1; 
-  visibility: visible; 
+.nav-overlay.active { transform: translateY(0); }
+
+.nav-list { list-style: none; padding: 0; margin: 0; text-align: center; }
+.nav-link {
+  font-family: 'Special Elite'; font-size: 1.8rem;
+  text-decoration: none; color: var(--ink); display: block; padding: 15px;
 }
 
-.nav-list { list-style: none; padding: 0; text-align: center; margin: 0; }
-.nav-link { 
-  font-size: 2rem; display: block; margin: 1.5rem 0; 
-  font-family: 'Special Elite'; color: var(--ink); text-decoration: none; 
-}
-
-/* ============ DESKTOP NAVIGATION (Screens wider than 768px) ============ */
+/* Desktop Navigation */
 @media (min-width: 768px) {
-  .menu-btn { display: none; } /* Hide hamburger on desktop */
-  
+  .menu-btn { display: none; }
   .nav-overlay {
-    position: static;
-    opacity: 1;
-    visibility: visible;
-    background: transparent;
-    height: auto;
-    width: auto;
-    display: block;
+    position: static; transform: none; display: block;
+    background: transparent; height: auto; width: auto;
   }
-  
-  .nav-list {
-    display: flex;
-    gap: 30px;
-    margin: 0;
-  }
-  
-  .nav-link {
-    font-size: 1rem; /* Chota font desktop ke liye */
-    margin: 0;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    position: relative;
-  }
-  
-  .nav-link::after {
-    content: ''; position: absolute; width: 0; height: 1px;
-    bottom: -5px; left: 0; background: var(--royal); transition: width 0.3s;
-  }
-  .nav-link:hover::after { width: 100%; }
+  .nav-list { display: flex; gap: 20px; }
+  .nav-link { font-size: 1rem; padding: 5px 10px; }
 }
 
-/* ============ SCROLL & SECTIONS ============ */
+/* ============ CONTENT SCROLLING ============ */
 .scroll-container {
   height: 100vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
+  position: relative;
+  z-index: 10; /* Content ko background se upar laane ke liye */
 }
 
 .scroll-area {
-  height: 100vh;
+  min-height: 100vh;
   scroll-snap-align: start;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  padding-top: 60px; /* Header ke liye jagah */
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 80px 20px 40px; /* Top padding header ke liye */
 }
 
-.content-wrapper {
-  width: 100%; max-width: 600px; padding: 1.5rem; text-align: center;
+/* Hero Section Items */
+.hero-visuals { position: relative; margin-bottom: 20px; }
+.avatar-ring {
+  width: 120px; height: 120px; border-radius: 50%;
+  border: 2px solid var(--gold); padding: 5px; background: white;
 }
-
-/* Hero Section Adjustments */
-.hero-visuals { position: relative; width: 140px; height: 140px; margin: 0 auto 1.5rem; }
-.avatar-ring { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--gold); padding: 5px; }
 .avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
-.wax-seal {
-  position: absolute; bottom: 0; right: -10px;
-  width: 65px; height: 65px; background: var(--royal); color: white;
-  border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  font-size: 0.75rem; border: 2px solid rgba(255,255,255,0.3);
-  transform: rotate(15deg); box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
+.hero-name { font-family: 'Special Elite'; font-size: 2.2rem; margin: 10px 0; text-align: center; }
+.hero-title { font-style: italic; opacity: 0.7; margin-bottom: 20px; text-align: center; }
 
-.hero-name { font-size: 3rem; margin: 0; font-family: 'Special Elite'; }
-.hero-title { font-size: 1.2rem; font-style: italic; opacity: 0.8; margin-bottom: 2rem; }
-
-/* Cards & Ledger Styles (Same as before) */
+/* Glass Panel (Quote Box) */
 .glass-panel {
-  background: var(--glass); backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border); border-radius: 12px;
-  padding: 2rem; box-shadow: 0 8px 32px rgba(0,0,0,0.05);
-  text-align: left;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 20px; border-radius: 15px;
+  max-width: 400px; width: 100%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
+/* Expertise Cards */
+.cards-stack { width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 15px; }
 .glass-card {
-  background: rgba(255,255,255,0.6); padding: 1.5rem; border-radius: 10px;
-  margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.8);
-  text-align: left;
+  background: white; padding: 15px; border-radius: 10px;
+  border-left: 4px solid var(--royal);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
-.cards-stack { margin-top: 2rem; }
+/* Ledger (Mobile Optimized) */
+.receipt-container {
+  width: 100%; max-width: 450px; background: white;
+  border-radius: 8px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.receipt-header { background: var(--ink); color: white; padding: 10px; font-family: 'Special Elite'; }
+.receipt-body { padding: 15px; }
+.receipt-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #ddd; }
 
-/* Ledger Receipt */
-.receipt-container { background: white; border: 1px solid #ddd; padding: 0; border-radius: 5px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-.receipt-header { background: #222; color: white; padding: 10px 15px; display: flex; justify-content: space-between; }
-.receipt-body { padding: 20px; text-align: left; }
-.receipt-row { display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px dashed #ccc; }
-.receipt-row:last-child { border-bottom: none; }
-
-/* FAB */
+/* Contact FAB */
 .fab-contact {
-  position: fixed; bottom: 30px; right: 30px;
-  width: 60px; height: 60px; background: var(--royal); color: white;
+  position: fixed; bottom: 20px; right: 20px;
+  width: 50px; height: 50px; background: var(--royal); color: white;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 5px 20px rgba(107, 44, 44, 0.4); z-index: 100;
-  transition: transform 0.2s;
+  z-index: 1100; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
-.fab-contact:hover { transform: scale(1.1); }
 
-/* Progress Bar */
-.scroll-progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 2000; }
-.scroll-progress-bar { height: 100%; background: var(--royal); width: 0%; }
+/* Animations */
+.scroll-progress-bar {
+  position: fixed; top: 0; left: 0; height: 4px; background: var(--royal);
+  width: 0%; z-index: 2000;
+}
