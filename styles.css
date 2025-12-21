@@ -1,188 +1,177 @@
-/* ============ 1. VARIABLES & RESET ============ */
+/* ============ GLOBAL RESET ============ */
 :root {
   --paper: #f0e6d2;
-  --paper-dark: #e6dcc9;
   --ink: #2c2420;
-  --royal: #6b2c2c; /* The red seal color */
+  --royal: #6b2c2c;
   --gold: #b59a76;
   --glass: rgba(255, 255, 255, 0.45);
   --glass-border: rgba(255, 255, 255, 0.6);
-  --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
 }
 
-*, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+*, *::before, *::after { box-sizing: border-box; }
 
 body {
   margin: 0; padding: 0;
   font-family: 'Cormorant Garamond', serif;
   background-color: var(--paper);
   color: var(--ink);
-  overflow: hidden; /* Handled by scroll container */
-  height: 100vh;
+  overflow: hidden; /* Scroll container handle karega */
 }
 
-/* Texture Overlay */
+/* Texture */
 .paper-texture {
   position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
 }
-.vignette-overlay {
-  position: fixed; inset: 0; pointer-events: none; z-index: 1;
-  background: radial-gradient(circle, transparent 60%, rgba(40,30,20,0.15) 100%);
-}
-#dust-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 
-/* ============ 2. SCROLL SNAP LAYOUT ============ */
+/* ============ NAVIGATION FIX (IMPORTANT) ============ */
+.mobile-nav {
+  position: fixed; top: 0; left: 0; right: 0; height: 70px;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 2rem; z-index: 1000; /* Sabse upar */
+  background: rgba(240, 230, 210, 0.9);
+  backdrop-filter: blur(8px);
+}
+
+.nav-brand { font-weight: bold; letter-spacing: 2px; font-size: 1.4rem; font-family: 'Special Elite', monospace; }
+
+/* Hamburger Button (Mobile Only) */
+.menu-btn { 
+  background: none; border: none; cursor: pointer; 
+  display: flex; flex-direction: column; gap: 6px; z-index: 1001;
+}
+.menu-icon-line { width: 28px; height: 3px; background: var(--ink); transition: 0.3s; }
+
+/* Mobile Menu Overlay - By default HIDDEN properly */
+.nav-overlay {
+  position: fixed; inset: 0; background: var(--paper);
+  display: flex; justify-content: center; align-items: center;
+  opacity: 0; 
+  visibility: hidden; /* Fix: Ab ye click nahi rokega */
+  transition: all 0.4s ease;
+  z-index: 999;
+}
+
+/* Jab Menu Open Ho */
+.nav-overlay.active { 
+  opacity: 1; 
+  visibility: visible; 
+}
+
+.nav-list { list-style: none; padding: 0; text-align: center; margin: 0; }
+.nav-link { 
+  font-size: 2rem; display: block; margin: 1.5rem 0; 
+  font-family: 'Special Elite'; color: var(--ink); text-decoration: none; 
+}
+
+/* ============ DESKTOP NAVIGATION (Screens wider than 768px) ============ */
+@media (min-width: 768px) {
+  .menu-btn { display: none; } /* Hide hamburger on desktop */
+  
+  .nav-overlay {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    background: transparent;
+    height: auto;
+    width: auto;
+    display: block;
+  }
+  
+  .nav-list {
+    display: flex;
+    gap: 30px;
+    margin: 0;
+  }
+  
+  .nav-link {
+    font-size: 1rem; /* Chota font desktop ke liye */
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+  }
+  
+  .nav-link::after {
+    content: ''; position: absolute; width: 0; height: 1px;
+    bottom: -5px; left: 0; background: var(--royal); transition: width 0.3s;
+  }
+  .nav-link:hover::after { width: 100%; }
+}
+
+/* ============ SCROLL & SECTIONS ============ */
 .scroll-container {
   height: 100vh;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  position: relative;
-  z-index: 2;
 }
 
 .scroll-area {
   height: 100vh;
   scroll-snap-align: start;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
   position: relative;
+  padding-top: 60px; /* Header ke liye jagah */
 }
 
 .content-wrapper {
-  width: 100%;
-  max-width: 600px; /* Mobile optimal width */
-  padding: 1rem;
+  width: 100%; max-width: 600px; padding: 1.5rem; text-align: center;
 }
 
-/* ============ 3. NAVIGATION & UI ELEMENTS ============ */
-.mobile-nav {
-  position: fixed; top: 0; left: 0; right: 0; height: 60px;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 0 1.5rem; z-index: 100;
-  background: rgba(240, 230, 210, 0.8);
-  backdrop-filter: blur(5px);
-}
-.nav-brand { font-weight: bold; letter-spacing: 2px; font-size: 1.2rem; }
-.menu-btn { background: none; border: none; display: flex; flex-direction: column; gap: 6px; cursor: pointer; }
-.menu-icon-line { width: 24px; height: 2px; background: var(--ink); transition: 0.3s; }
+/* Hero Section Adjustments */
+.hero-visuals { position: relative; width: 140px; height: 140px; margin: 0 auto 1.5rem; }
+.avatar-ring { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--gold); padding: 5px; }
+.avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
-/* Nav Overlay */
-.nav-overlay {
-  position: fixed; inset: 0; background: var(--paper);
-  display: flex; justify-content: center; align-items: center;
-  opacity: 0; pointer-events: none; transition: 0.4s ease;
-  z-index: 90;
+.wax-seal {
+  position: absolute; bottom: 0; right: -10px;
+  width: 65px; height: 65px; background: var(--royal); color: white;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; border: 2px solid rgba(255,255,255,0.3);
+  transform: rotate(15deg); box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
-.nav-overlay.active { opacity: 1; pointer-events: auto; }
-.nav-list { list-style: none; padding: 0; text-align: center; }
-.nav-link { font-size: 2rem; display: block; margin: 1.5rem 0; font-family: 'Special Elite'; color: var(--ink); text-decoration: none; }
 
-/* Scroll Progress */
-.scroll-progress-container {
-  position: fixed; top: 60px; left: 0; width: 100%; height: 3px; z-index: 99;
+.hero-name { font-size: 3rem; margin: 0; font-family: 'Special Elite'; }
+.hero-title { font-size: 1.2rem; font-style: italic; opacity: 0.8; margin-bottom: 2rem; }
+
+/* Cards & Ledger Styles (Same as before) */
+.glass-panel {
+  background: var(--glass); backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border); border-radius: 12px;
+  padding: 2rem; box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+  text-align: left;
 }
-.scroll-progress-bar {
-  height: 100%; background: var(--royal); width: 0%; transition: width 0.1s;
+
+.glass-card {
+  background: rgba(255,255,255,0.6); padding: 1.5rem; border-radius: 10px;
+  margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.8);
+  text-align: left;
 }
+
+.cards-stack { margin-top: 2rem; }
+
+/* Ledger Receipt */
+.receipt-container { background: white; border: 1px solid #ddd; padding: 0; border-radius: 5px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.receipt-header { background: #222; color: white; padding: 10px 15px; display: flex; justify-content: space-between; }
+.receipt-body { padding: 20px; text-align: left; }
+.receipt-row { display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px dashed #ccc; }
+.receipt-row:last-child { border-bottom: none; }
 
 /* FAB */
 .fab-contact {
-  position: fixed; bottom: 25px; right: 25px;
-  width: 55px; height: 55px;
-  background: var(--royal); color: white;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  z-index: 80;
+  position: fixed; bottom: 30px; right: 30px;
+  width: 60px; height: 60px; background: var(--royal); color: white;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 5px 20px rgba(107, 44, 44, 0.4); z-index: 100;
   transition: transform 0.2s;
 }
-.fab-contact:active { transform: scale(0.9); }
+.fab-contact:hover { transform: scale(1.1); }
 
-/* ============ 4. SECTION STYLES ============ */
-.typewriter { font-family: 'Special Elite', monospace; text-transform: uppercase; }
-
-/* Hero */
-.hero-wrapper { text-align: center; }
-.hero-visuals { position: relative; width: 120px; height: 120px; margin: 0 auto 1.5rem; }
-.avatar-ring {
-  width: 100%; height: 100%; border-radius: 50%;
-  border: 2px solid var(--gold); padding: 4px;
-}
-.avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-.wax-seal {
-  position: absolute; bottom: -10px; right: -10px;
-  width: 60px; height: 60px; background: var(--royal); color: #fff;
-  border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  font-size: 0.7rem; text-align: center; border: 2px solid rgba(255,255,255,0.3);
-  transform: rotate(15deg); box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
-}
-
-.hero-name { font-size: 2.5rem; margin: 0; line-height: 1; }
-.hero-title { font-size: 1.2rem; font-style: italic; opacity: 0.8; margin-top: 5px; }
-
-.glass-panel {
-  background: var(--glass);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-top: 1.5rem;
-  box-shadow: var(--shadow);
-}
-.hero-text { font-size: 1.1rem; line-height: 1.6; margin: 0 0 10px 0; }
-.highlight { color: var(--royal); font-weight: 600; }
-.signature { text-align: right; font-family: cursive; opacity: 0.7; }
-
-.scroll-hint { margin-top: 2rem; opacity: 0.6; font-size: 0.8rem; animation: bounce 2s infinite; }
-.arrow-down { 
-  width: 10px; height: 10px; border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); 
-  transform: rotate(45deg); margin: 5px auto 0; 
-}
-@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
-
-/* Expertise Cards */
-.section-header { text-align: left; margin-bottom: 1.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 5px; display: flex; justify-content: space-between; align-items: flex-end;}
-.section-number { font-family: 'Special Elite'; font-size: 3rem; color: var(--gold); opacity: 0.3; line-height: 0.8; }
-.cards-stack { display: flex; flex-direction: column; gap: 15px; }
-
-.glass-card {
-  background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.6);
-  padding: 1.2rem; border-radius: 10px; display: flex; flex-direction: column; gap: 5px;
-}
-.card-icon { font-size: 1.8rem; margin-bottom: 5px; }
-.glass-card h3 { margin: 0; font-family: 'Special Elite'; font-size: 1.1rem; }
-.glass-card p { margin: 0; font-size: 0.95rem; line-height: 1.4; opacity: 0.9; }
-
-/* Ledger Receipt */
-.receipt-container { padding: 0; overflow: hidden; position: relative; }
-.receipt-header { background: var(--ink); color: var(--paper); padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
-.receipt-body { padding: 1.5rem 1rem; }
-.receipt-row { display: flex; justify-content: space-between; align-items: center; margin: 8px 0; }
-.row-left { display: flex; flex-direction: column; }
-.row-sub { font-size: 0.8rem; opacity: 0.7; font-style: italic; }
-.score { font-family: 'Special Elite'; font-weight: bold; font-size: 1.1rem; }
-.receipt-divider { border-bottom: 1px dashed var(--gold); margin: 8px 0; opacity: 0.5; }
-.status.done { color: green; font-weight: bold; margin-left: 8px; }
-.status.pending { color: orange; font-style: italic; font-size: 0.9rem; }
-.receipt-footer { text-align: center; font-size: 0.7rem; padding-bottom: 10px; opacity: 0.5; font-family: monospace; }
-
-/* Contact Buttons */
-.social-links-vertical { display: flex; flex-direction: column; gap: 12px; margin-top: 1.5rem; }
-.social-btn {
-  display: flex; align-items: center; padding: 12px 16px;
-  background: white; border: 1px solid var(--ink); border-radius: 8px;
-  text-decoration: none; color: var(--ink); transition: 0.2s;
-}
-.social-btn:active { transform: scale(0.98); background: #f4f4f4; }
-.btn-icon { width: 24px; font-weight: bold; opacity: 0.6; }
-.btn-text { flex-grow: 1; font-size: 1rem; }
-.btn-arrow { opacity: 0.5; }
-.highlight-btn { background: var(--royal); color: white; border-color: var(--royal); }
-.highlight-btn .btn-icon, .highlight-btn .nav-link, .highlight-btn .btn-text { color: white; }
-
-.final-footer { margin-top: 2rem; text-align: center; font-size: 0.8rem; opacity: 0.5; }
+/* Progress Bar */
+.scroll-progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 2000; }
+.scroll-progress-bar { height: 100%; background: var(--royal); width: 0%; }
