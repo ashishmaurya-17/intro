@@ -2,151 +2,119 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Ashish Kumar · Data & Policy Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <title>Ashish Kumar · Data & Policy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="theme-color" content="#f2e8d5"> <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  
   <div class="paper-texture"></div>
   <canvas id="dust-canvas"></canvas>
   <div class="page-vignette"></div>
 
   <div class="page-wrapper">
-    <header class="site-header fade-in-down">
+    <header class="site-header">
       <div class="header-inner">
         <div class="brand-mark">
           <span class="brand-initials typewriter">A.K.</span>
-          <span class="brand-divider"></span>
           <span class="brand-name typewriter">ASHISH KUMAR</span>
         </div>
 
-        <button class="nav-toggle" aria-label="Toggle navigation">
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
           <span class="nav-line"></span>
           <span class="nav-line"></span>
           <span class="nav-line"></span>
         </button>
-
-        <nav class="site-nav">
-          <ul class="nav-links">
-            <li><a href="#hero" class="nav-item">Overview</a></li>
-            <li><a href="#expertise" class="nav-item">Core Expertise</a></li>
-            <li><a href="#ledger" class="nav-item">Academic Ledger</a></li>
-            <li><a href="#contact" class="nav-item">Contact</a></li>
-          </ul>
-        </nav>
       </div>
+
+      <nav class="site-nav" id="mobile-nav">
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-item">Overview</a></li>
+          <li><a href="#expertise" class="nav-item">Expertise</a></li>
+          <li><a href="#ledger" class="nav-item">Academic Ledger</a></li>
+          <li><a href="#contact" class="nav-item">Contact</a></li>
+        </ul>
+      </nav>
       <div class="header-rule"></div>
     </header>
 
     <main>
       <section id="hero" class="hero-section fade-in-up">
-        <div class="hero-layout">
-          <div class="hero-left">
-            <div class="hero-left-top">
-              <div class="hero-avatar-wrapper">
-                <div class="hero-avatar-ring">
-                  <img
-                    src="https://github.com/ashishmaurya-17/intro/raw/main/308009592_824905998535562_4349481903912511976_n_824906008535561.jpg"
-                    alt="Portrait of Ashish Kumar"
-                    class="hero-avatar"
-                  />
-                </div>
-              </div>
-
-              <div class="wax-seal" title="Established 2004">
-                <span class="wax-text typewriter">EST.<br>2004</span>
-              </div>
-            </div>
-
-            <h1 class="hero-title typewriter-effect">
-              ASHISH KUMAR
-            </h1>
-
-            <p class="hero-tagline">
-              Where data meets <span class="highlight-text">ground reality</span>.
-            </p>
-
-            <div class="hero-role-container">
-              <p class="hero-role">
-                <span class="label-prefix">Primary Role:</span>
-                Data Interpreter · Policy Thinker · Detail-Driven Writer
-              </p>
-              <p class="hero-role hero-role-secondary">
-                I speak less, observe more, and work where clarity, evidence, and discipline overlap.
-              </p>
-            </div>
-
-            <div class="soft-skills">
-              <span class="skill-stamp">CONSISTENCY</span>
-              <span class="skill-stamp">OBSERVATION</span>
-              <span class="skill-stamp">CLARITY</span>
-              <span class="skill-stamp">LOGIC</span>
-            </div>
+        <div class="hero-top-row">
+          <div class="hero-avatar-ring">
+            <img
+              src="https://github.com/ashishmaurya-17/intro/raw/main/308009592_824905998535562_4349481903912511976_n_824906008535561.jpg"
+              alt="Portrait of Ashish Kumar"
+              class="hero-avatar"
+            />
           </div>
-
-          <div class="hero-right">
-            <div class="hero-document tilt-effect">
-              <div class="paper-clip"></div>
-              <div class="doc-header typewriter">THE ROYAL DOSSIER</div>
-              <p class="doc-body">
-                Ashish Kumar is a calm, observant mind who reads patterns more than noise.
-                Introverted by nature, he relies on <strong>logic</strong>, <strong>lived experience</strong>, and <strong>discipline</strong>
-                rather than impulse.
-              </p>
-              <p class="doc-body quote-style">
-                “Clarity is strength.”
-              </p>
-              <p class="doc-body">
-                This dossier collects the essentials: how he thinks, how he studies, and how he
-                turns data and policy into something understandable, honest, and grounded.
-              </p>
-              <div class="signature">Ashish K.</div>
-            </div>
+          <div class="wax-seal">
+            <span class="wax-text typewriter">EST.<br>2004</span>
           </div>
+        </div>
+
+        <h1 class="hero-title typewriter-effect">ASHISH KUMAR</h1>
+
+        <p class="hero-tagline">
+          Where data meets <span class="highlight-text">ground reality</span>.
+        </p>
+
+        <div class="hero-role-mobile">
+          <p><strong>Primary Role:</strong> Data Interpreter · Policy Thinker</p>
+          <div class="soft-skills-scroller">
+            <span class="skill-stamp">CONSISTENCY</span>
+            <span class="skill-stamp">OBSERVATION</span>
+            <span class="skill-stamp">CLARITY</span>
+          </div>
+        </div>
+
+        <div class="hero-document">
+          <div class="doc-header typewriter">THE ROYAL DOSSIER</div>
+          <p class="doc-body">
+            Ashish Kumar is a calm, observant mind who reads patterns more than noise. 
+            Introverted by nature, relying on <strong>logic</strong> and <strong>discipline</strong>.
+          </p>
+          <p class="doc-body quote-style">“Clarity is strength.”</p>
         </div>
       </section>
 
       <section id="expertise" class="section-shell fade-in-up">
         <div class="section-heading">
           <h2 class="section-title typewriter">CORE EXPERTISE</h2>
-          <p class="section-subtitle">
-            Simple, structured, and grounded in real outcomes.
-          </p>
         </div>
 
         <div class="cards-grid">
-          <article class="expertise-card hover-lift">
-            <header class="card-header">
+          <article class="expertise-card">
+            <div class="card-top">
               <h3 class="card-title typewriter">DATA STRATEGY</h3>
-              <span class="card-metric-stamp">PRACTICAL</span>
-            </header>
+              <span class="card-icon">📊</span>
+            </div>
             <p class="card-text">
-              Reading patterns instead of chasing noise. Designing simple flows for reports so decision-makers can see what actually matters.
+              Reading patterns instead of chasing noise. Designing simple reports decision-makers can actually use.
             </p>
           </article>
 
-          <article class="expertise-card hover-lift" style="transition-delay: 100ms;">
-            <header class="card-header">
+          <article class="expertise-card">
+            <div class="card-top">
               <h3 class="card-title typewriter">POLICY ARCHITECTURE</h3>
-              <span class="card-metric-stamp">FRAMEWORK</span>
-            </header>
+              <span class="card-icon">🏛️</span>
+            </div>
             <p class="card-text">
-              Building clear structures for rules. Bridging the gap between regulations and the people who must follow them using human language.
+              Bridging the gap between regulations and the people who must follow them using human language.
             </p>
           </article>
 
-          <article class="expertise-card hover-lift" style="transition-delay: 200ms;">
-            <header class="card-header">
+          <article class="expertise-card">
+            <div class="card-top">
               <h3 class="card-title typewriter">TECHNICAL WRITING</h3>
-              <span class="card-metric-stamp">CLARITY</span>
-            </header>
+              <span class="card-icon">✍️</span>
+            </div>
             <p class="card-text">
-              Writing that respects the reader’s time. Concise, factual briefing notes and documentation that read like explanations, not speeches.
+              Concise, factual briefing notes. Writing that respects the reader’s time.
             </p>
           </article>
         </div>
@@ -155,97 +123,68 @@
       <section id="ledger" class="section-shell fade-in-up">
         <div class="section-heading">
           <h2 class="section-title typewriter">ACADEMIC LEDGER</h2>
-          <p class="section-subtitle">
-            A steady record of disciplined study.
-          </p>
         </div>
 
-        <div class="ledger-wrapper">
-          <div class="ledger-border">
-            <div class="ledger-header-row">
-              <span class="ledger-title typewriter">UNIVERSITY RECORD</span>
-              <span class="ledger-submark">Ashish Kumar · Pol. Sci.</span>
-            </div>
-
-            <div class="ledger-scroll">
-              <table class="ledger-table">
-                <thead>
-                  <tr>
-                    <th>Level</th>
-                    <th>Institution / Stream</th>
-                    <th>Score</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>10<sup>th</sup></td>
-                    <td>Secondary (Bihar Board)</td>
-                    <td class="score-cell">90.54%</td>
-                    <td><span class="status-stamp status-completed">DONE</span></td>
-                  </tr>
-                  <tr>
-                    <td>12<sup>th</sup></td>
-                    <td>Higher Secondary</td>
-                    <td class="score-cell">89.84%</td>
-                    <td><span class="status-stamp status-completed">DONE</span></td>
-                  </tr>
-                  <tr>
-                    <td>Grad. Sem 1</td>
-                    <td>B.A. Political Science</td>
-                    <td class="score-cell">86%</td>
-                    <td><span class="status-stamp status-completed">DONE</span></td>
-                  </tr>
-                  <tr>
-                    <td>Grad. Sem 2+</td>
-                    <td>B.A. Political Science</td>
-                    <td class="score-cell">—</td>
-                    <td><span class="status-stamp status-pursuing">ONGOING</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            
-            <div class="ledger-footer-note">
-              * High scores in a competitive environment reflect discipline, not just performance.
-            </div>
-          </div>
+        <div class="responsive-table-wrapper">
+          <table class="ledger-table">
+            <thead>
+              <tr>
+                <th>Level</th>
+                <th>Details</th>
+                <th>Score</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Level">10<sup>th</sup></td>
+                <td data-label="Details">Secondary (Bihar Board)</td>
+                <td data-label="Score" class="score-cell">90.54%</td>
+                <td data-label="Status"><span class="status-stamp status-completed">DONE</span></td>
+              </tr>
+              <tr>
+                <td data-label="Level">12<sup>th</sup></td>
+                <td data-label="Details">Higher Secondary</td>
+                <td data-label="Score" class="score-cell">89.84%</td>
+                <td data-label="Status"><span class="status-stamp status-completed">DONE</span></td>
+              </tr>
+              <tr>
+                <td data-label="Level">Grad. Sem 1</td>
+                <td data-label="Details">B.A. Political Science</td>
+                <td data-label="Score" class="score-cell">86%</td>
+                <td data-label="Status"><span class="status-stamp status-completed">DONE</span></td>
+              </tr>
+              <tr>
+                <td data-label="Level">Current</td>
+                <td data-label="Details">B.A. Political Science (Sem 2+)</td>
+                <td data-label="Score" class="score-cell">—</td>
+                <td data-label="Status"><span class="status-stamp status-pursuing">ONGOING</span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
       <section id="contact" class="section-shell fade-in-up">
         <div class="section-heading">
-          <h2 class="section-title typewriter">CONTACT & SOCIAL</h2>
+          <h2 class="section-title typewriter">CONTACT</h2>
         </div>
+        
+        <p class="contact-intro">Click below to connect.</p>
 
-        <div class="contact-layout">
-          <div class="contact-panel">
-            <p class="contact-copy">
-              I treat every piece of work as evidence that should stand on its own.
-            </p>
-
-            <div class="contact-grid">
-              <a class="press-button" href="https://www.linkedin.com/in/ashishmaurya17/" target="_blank">
-                <span class="press-label typewriter">LINKEDIN</span>
-                <span class="press-subtext">Professional</span>
-              </a>
-
-              <a class="press-button" href="https://github.com/ashishmaurya-17" target="_blank">
-                <span class="press-label typewriter">GITHUB</span>
-                <span class="press-subtext">Code & Projects</span>
-              </a>
-
-              <a class="press-button" href="mailto:eduashishh@gmail.com">
-                <span class="press-label typewriter">EMAIL</span>
-                <span class="press-subtext">Direct Contact</span>
-              </a>
-
-              <a class="press-button" href="https://www.instagram.com/ashishh.kr" target="_blank">
-                <span class="press-label typewriter">INSTAGRAM</span>
-                <span class="press-subtext">Moments</span>
-              </a>
-            </div>
-          </div>
+        <div class="contact-grid">
+          <a class="press-button" href="https://www.linkedin.com/in/ashishmaurya17/" target="_blank">
+            <span class="press-label typewriter">LINKEDIN</span>
+          </a>
+          <a class="press-button" href="https://github.com/ashishmaurya-17" target="_blank">
+            <span class="press-label typewriter">GITHUB</span>
+          </a>
+          <a class="press-button" href="mailto:eduashishh@gmail.com">
+            <span class="press-label typewriter">EMAIL</span>
+          </a>
+          <a class="press-button" href="https://www.instagram.com/ashishh.kr" target="_blank">
+            <span class="press-label typewriter">INSTAGRAM</span>
+          </a>
         </div>
       </section>
     </main>
@@ -253,7 +192,7 @@
     <footer class="site-footer">
       <div class="footer-rule"></div>
       <p class="footer-text typewriter">
-        Crafted with quiet discipline · Ashish Kumar · 2025
+        © 2025 Ashish Kumar<br>Crafted on Earth
       </p>
     </footer>
   </div>
