@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Confirm Delivery Details | OFFLEGACY</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        /* Private Page Styles */
+        body { background-color: #f0f2f5; }
+        
+        .secure-wrapper {
+            max-width: 500px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-top: 5px solid #000;
+        }
+
+        .secure-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .secure-header h2 { font-size: 22px; margin-bottom: 10px; }
+        .secure-header p { font-size: 14px; color: #666; }
+        
+        .order-badge {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        /* Form Styling */
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            color: #333;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus {
+            border-color: #000;
+            outline: none;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: #000;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-submit:hover { background: #333; }
+
+        /* Security Note */
+        .privacy-note {
+            margin-top: 25px;
+            font-size: 11px;
+            color: #888;
+            text-align: center;
+            line-height: 1.5;
+            background: #fafafa;
+            padding: 10px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="secure-wrapper">
+        <div class="secure-header">
+            <div class="logo" style="margin-bottom: 20px;">
+                <a href="#" style="font-size: 24px; font-weight:800; text-decoration:none; color:black;">OFFLEGACY</a>
+            </div>
+            
+            <div class="order-badge">
+                <i class="fas fa-check-circle"></i> Payment Verified
+            </div>
+            
+            <h2>Final Step: Delivery Details</h2>
+            <p>Please enter the shipping address for your order.</p>
+        </div>
+
+        <form id="deliveryForm">
+            <input type="hidden" id="orderId" name="orderId">
+            <input type="hidden" id="token" name="token">
+
+            <div class="form-group">
+                <label>Receiver Name</label>
+                <input type="text" id="ship-name" required placeholder="Who is receiving the package?">
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="ship-phone" required placeholder="For delivery coordination">
+            </div>
+
+            <div class="form-group">
+                <label>Flat / House No. / Building</label>
+                <input type="text" id="ship-address1" required>
+            </div>
+
+            <div class="form-group">
+                <label>Area / Street / Sector</label>
+                <input type="text" id="ship-address2" required>
+            </div>
+
+            <div class="form-group" style="display: flex; gap: 10px;">
+                <div style="flex: 1;">
+                    <label>City</label>
+                    <input type="text" id="ship-city" required>
+                </div>
+                <div style="flex: 1;">
+                    <label>Pincode</label>
+                    <input type="text" id="ship-pincode" required pattern="[0-9]{6}" maxlength="6">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>State</label>
+                <input type="text" id="ship-state" required>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitBtn">Confirm Shipment</button>
+        </form>
+
+        <div class="privacy-note">
+            <i class="fas fa-lock"></i> <strong>Privacy Guarantee:</strong>
+            This data is encrypted and sent directly to our fulfillment team. 
+            It is never shared with third-party logistics aggregators.
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script src="assets/js/delivery.js"></script>
+</body>
+</html>
