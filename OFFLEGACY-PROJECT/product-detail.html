@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mechanical Robot Kit | OFFLEGACY</title>
+    
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="utility-bar">
+        <p>🔥 Selling Fast! Only 7 units left in stock.</p>
+    </div>
+
+    <header class="site-header">
+        <div class="header-container">
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            <div class="logo"><a href="index.html">OFFLEGACY</a></div>
+            <nav class="desktop-nav">
+                <a href="index.html">Home</a>
+                <a href="products.html">Toys</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <div class="header-icons">
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcrumbs">
+        <a href="index.html">Home</a> / <a href="products.html">Toys</a> / <span>Mechanical Robot Kit</span>
+    </div>
+
+    <section class="product-detail-container">
+        
+        <div class="product-gallery">
+            <div class="main-image-frame">
+                <span class="discount-badge">-50%</span>
+                <img id="currentImage" src="assets/images/toy-1.jpg" alt="Mechanical Robot Kit">
+            </div>
+            <div class="thumbnail-row">
+                <img src="assets/images/toy-1.jpg" class="thumb active" onclick="changeImage(this)">
+                <img src="assets/images/toy-1-side.jpg" class="thumb" onclick="changeImage(this)">
+                <img src="assets/images/toy-1-box.jpg" class="thumb" onclick="changeImage(this)">
+            </div>
+        </div>
+
+        <div class="product-info">
+            <h1 class="p-title">Mechanical Robot Kit</h1>
+            
+            <div class="p-rating">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                <span>(128 Reviews)</span>
+            </div>
+
+            <div class="p-price">
+                <span class="current-price">₹999</span>
+                <span class="old-price">₹1,999</span>
+                <span class="save-label">You save ₹1,000</span>
+            </div>
+
+            <div class="urgency-box">
+                <i class="fas fa-fire-alt"></i> 14 people are viewing this right now.
+            </div>
+
+            <div class="p-actions">
+                <div class="qty-selector">
+                    <button onclick="updateQty(-1)">-</button>
+                    <input type="number" id="qty" value="1" min="1" readonly>
+                    <button onclick="updateQty(1)">+</button>
+                </div>
+                <button class="btn-add-cart-large" onclick="addToCart('101')">
+                    ADD TO CART - ₹999
+                </button>
+            </div>
+            
+            <button class="btn-buy-now" onclick="buyNow('101')">BUY IT NOW</button>
+
+            <div class="p-trust">
+                <div><i class="fas fa-shipping-fast"></i><br>Free Shipping</div>
+                <div><i class="fas fa-shield-alt"></i><br>1 Year Warranty</div>
+                <div><i class="fas fa-undo"></i><br>30-Day Returns</div>
+            </div>
+
+            <div class="p-description">
+                <h3>Description</h3>
+                <p>Ignite your child's creativity with our premium Mechanical Robot Kit. Designed for ages 8+, this kit introduces STEM concepts through hands-on play.</p>
+                
+                <ul class="feature-list">
+                    <li>✅ <strong>Material:</strong> Eco-friendly ABS Plastic</li>
+                    <li>✅ <strong>Age:</strong> 8 - 14 Years</li>
+                    <li>✅ <strong>Battery:</strong> Rechargeable (Included)</li>
+                    <li>✅ <strong>Skillset:</strong> Problem Solving, Motor Skills</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews-section">
+        <h2>Customer Reviews</h2>
+        <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <h4>"My son loves it!"</h4>
+            <p>Great quality and fast delivery. The packaging was excellent.</p>
+            <span class="reviewer">- Rahul S. (Verified Buyer)</span>
+        </div>
+        </section>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms.html">Terms</a>
+        </div>
+        <div class="copyright">© 2025 OFFLEGACY.</div>
+    </footer>
+
+    <script>
+        function changeImage(element) {
+            document.getElementById('currentImage').src = element.src;
+            document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function updateQty(change) {
+            let qtyInput = document.getElementById('qty');
+            let newVal = parseInt(qtyInput.value) + change;
+            if (newVal >= 1) qtyInput.value = newVal;
+        }
+
+        // Simulating Add to Cart
+        function addToCart(id) {
+            let count = document.getElementById('cart-count');
+            count.innerText = parseInt(count.innerText) + 1;
+            alert("Added to cart!");
+        }
+        
+        function buyNow(id) {
+            // This will lead to the guest checkout logic later
+            window.location.href = "checkout.html";
+        }
+    </script>
+</body>
+</html>
