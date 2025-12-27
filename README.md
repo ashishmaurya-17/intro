@@ -1,2 +1,0 @@
-# i
-reviewing self things 
