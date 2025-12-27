@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Secure Checkout | OFFLEGACY</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    
+    <style>
+        /* Specific Checkout Styles */
+        body { background: #f4f4f4; }
+        .checkout-container {
+            max-width: 600px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .checkout-header { text-align: center; border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; }
+        
+        .order-summary { background: #fafafa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
+        .total-row { font-weight: 800; font-size: 18px; border-top: 1px solid #ddd; padding-top: 10px; margin-top: 10px; }
+        
+        .btn-pay {
+            width: 100%;
+            background: #000;
+            color: white;
+            padding: 15px;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .secure-badge { text-align: center; margin-top: 15px; font-size: 12px; color: #777; }
+        .secure-badge i { color: green; }
+    </style>
+</head>
+<body>
+
+    <div class="checkout-container">
+        <div class="checkout-header">
+            <h2>OFFLEGACY Checkout</h2>
+            <p>Complete your purchase securely</p>
+        </div>
+
+        <div class="order-summary">
+            <div class="summary-row">
+                <span id="prod-name">Loading Product...</span>
+                <span id="prod-price">--</span>
+            </div>
+            <div class="summary-row" style="color: green;">
+                <span>Shipping</span>
+                <span>FREE</span>
+            </div>
+            <div class="summary-row total-row">
+                <span>Total</span>
+                <span id="total-price">--</span>
+            </div>
+        </div>
+
+        <form id="checkoutForm" onsubmit="initiatePayment(event)">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="cust-name" placeholder="Enter your name" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Email Address (Important for Delivery)</label>
+                <input type="email" id="cust-email" placeholder="You will receive the product link here" required>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="cust-phone" placeholder="Mobile number" required>
+            </div>
+
+            <button type="submit" class="btn-pay" id="payBtn">Pay Securely</button>
+            
+            <div class="secure-badge">
+                <i class="fas fa-lock"></i> 100% Secure Payment via Razorpay
+            </div>
+        </form>
+    </div>
+
+    <script src="assets/js/razorpay.js"></script>
+    <script>
+        // Simulating getting product data from URL or LocalStorage
+        // In real app, you parse URL params: checkout.html?id=101
+        window.onload = function() {
+            // Mock Data
+            document.getElementById('prod-name').innerText = "Mechanical Robot Kit (x1)";
+            document.getElementById('prod-price').innerText = "₹999";
+            document.getElementById('total-price').innerText = "₹999";
+        };
+    </script>
+</body>
+</html>
