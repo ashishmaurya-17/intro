@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OFFLEGACY | Premium Toys</title>
+    
+    <meta name="theme-color" content="#ffffff">
+    
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="utility-bar">
+        <p>🚚 Free Shipping on all orders | 📦 Easy Returns</p>
+    </div>
+
+    <header class="site-header">
+        <div class="header-container">
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+
+            <div class="logo">
+                <a href="index.html">OFFLEGACY</a>
+            </div>
+
+            <nav class="desktop-nav">
+                <a href="index.html">Home</a>
+                <a href="products.html">Toys</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+
+            <div class="header-icons">
+                <a href="#" class="search-icon"><i class="fas fa-search"></i></a>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-slider">
+            <div class="slide active">
+                <img src="assets/images/hero-toy-1.jpg" alt="Featured Toy" class="hero-img">
+                <div class="hero-content">
+                    <span class="badge">Best Seller</span>
+                    <h1>Super Speed Racer</h1>
+                    <div class="price-container">
+                        <span class="original-price">₹2,999</span>
+                        <span class="sale-price">₹1,499</span>
+                    </div>
+                    <a href="product-detail.html?id=101" class="btn-primary">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust-strip">
+        <div class="trust-item"><i class="fas fa-truck"></i> Free Shipping</div>
+        <div class="trust-item"><i class="fas fa-lock"></i> Secure Pay</div>
+        <div class="trust-item"><i class="fas fa-box-open"></i> Quality Checked</div>
+    </section>
+
+    <section class="product-collection">
+        <h2 class="section-title">Trending Toys</h2>
+        
+        <div class="product-grid" id="featured-products">
+            <div class="product-card">
+                <div class="card-image">
+                    <span class="discount-tag">-50%</span>
+                    <img src="assets/images/toy-1.jpg" alt="Toy Name">
+                </div>
+                <div class="card-info">
+                    <h3>Mechanical Robot Kit</h3>
+                    <div class="rating">★★★★☆ (120)</div>
+                    <div class="price">
+                        <span class="old">₹1,999</span>
+                        <span class="new">₹999</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="addToCart('101')">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-image">
+                    <img src="assets/images/toy-2.jpg" alt="Toy Name">
+                </div>
+                <div class="card-info">
+                    <h3>Educational Block Set</h3>
+                    <div class="rating">★★★★★ (45)</div>
+                    <div class="price">
+                        <span class="old">₹1,299</span>
+                        <span class="new">₹899</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="addToCart('102')">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="view-all-container">
+            <a href="products.html" class="btn-secondary">View All Toys</a>
+        </div>
+    </section>
+
+    <section class="newsletter-section">
+        <div class="newsletter-content">
+            <h2>Join the Legacy</h2>
+            <p>Subscribe for exclusive drops and offers.</p>
+            <form id="newsletter-form">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+            <a href="shipping.html">Shipping Policy</a>
+            <a href="refund.html">Refund Policy</a>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+        </div>
+        <div class="copyright">
+            <p>© 2025 OFFLEGACY. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
